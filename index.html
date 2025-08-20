@@ -559,8 +559,8 @@
     <div class="container">
         <!-- Header -->
         <div class="header" id="mainHeader">
-            <h1>🏥 MedDoc Pro - Sistema de Documentação Clínica</h1>
-            <p id="headerSubtitle">FAMERP - 4ª Série Medicina | Módulo 2 - Turma B23</p>
+            <h1>🏥 MedDoc Pro - Coleta de História do Paciente</h1>
+            <p id="headerSubtitle">Anamnese Completa</p>
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -3782,7 +3782,6 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
             if (mode === 'brazilian') {
                 document.querySelector('.brazilian-btn').classList.add('active');
                 document.getElementById('mainHeader').classList.remove('epic-theme');
-                document.getElementById('headerSubtitle').textContent = 'FAMERP - 4ª Série Medicina | Módulo 2 - Turma B23';
             } else if (mode === 'epic') {
                 document.querySelector('.epic-btn').classList.add('active');
                 document.getElementById('mainHeader').classList.add('epic-theme');
@@ -4202,8 +4201,7 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
            
             // Header based on mode
             if (currentMode === 'brazilian') {
-                addText('ANAMNESE - GASTROCIRURGIA', 16, true);
-                addText('FAMERP - 4ª Série Medicina | Módulo 2 - Turma B23', 12);
+                addText('ANAMNESE', 16, true);
             } else if (currentMode === 'epic') {
                 addText('EPIC MEDICAL RECORD - GASTRIC SURGERY', 16, true);
                 addText('Electronic Health Record Documentation', 12);
