@@ -559,8 +559,8 @@
     <div class="container">
         <!-- Header -->
         <div class="header" id="mainHeader">
-            <h1>🏥 MedDoc Pro - Anamnese</h1>
-            <p id="headerSubtitle">@madv.md</p>
+            <h1>🏥 MedDoc Pro - Sistema de Documentação Clínica</h1>
+            <p id="headerSubtitle">FAMERP - 4ª Série Medicina | Módulo 2 - Turma B23</p>
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -778,7 +778,7 @@
                 <!-- Características da Dor -->
                 <div class="form-group">
                     <label>🔍 Caracterização da Dor (Se Houver)</label>
-                   
+                  
                     <div style="margin: 20px 0;">
                         <label>Localização Anatômica</label>
                         <div class="checkbox-grid">
@@ -2296,7 +2296,7 @@
                 <!-- Antecedentes Fisiológicos -->
                 <div class="form-group">
                     <label style="font-size: 1.1em; color: var(--primary);">🍼 Antecedentes Fisiológicos</label>
-                   
+                  
                     <div class="form-group">
                         <label>Gestação e Nascimento</label>
                         <div class="grid-2">
@@ -2431,7 +2431,7 @@
                 <!-- Antecedentes Patológicos -->
                 <div class="form-group">
                     <label style="font-size: 1.1em; color: var(--primary);">🏥 Antecedentes Patológicos</label>
-                   
+                  
                     <div class="form-group">
                         <label>Doenças da Infância</label>
                         <div class="checkbox-grid">
@@ -3786,7 +3786,7 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
             } else if (mode === 'epic') {
                 document.querySelector('.epic-btn').classList.add('active');
                 document.getElementById('mainHeader').classList.add('epic-theme');
-                document.getElementById('headerSubtitle').textContent = 'Electronic Medical Record';
+                document.getElementById('headerSubtitle').textContent = 'Electronic Medical Record - Gastric Surgery Rotation';
             } else if (mode === 'soap') {
                 document.querySelector('.soap-btn').classList.add('active');
                 document.getElementById('mainHeader').classList.remove('epic-theme');
@@ -3847,7 +3847,332 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
                 timestamp: new Date().toISOString(),
                 sections: {}
             };
+            if (currentMode === 'brazilian') {
+                data.sections = collectBrazilianData();
+            } else if (currentMode === 'epic') {
+                data.sections = collectEpicData();
+            } else if (currentMode === 'soap') {
+                data.sections = collectSoapData();
+            }
             return data;
+        }
+        function collectBrazilianData() {
+            return {
+                identificacao: {
+                    nome: document.getElementById('br_nomeCompleto')?.value || '',
+                    registro: document.getElementById('br_registro')?.value || '',
+                    idade: document.getElementById('br_idade')?.value || '',
+                    dataNascimento: document.getElementById('br_dataNascimento')?.value || '',
+                    sexo: document.getElementById('br_sexo')?.value || '',
+                    corEtnia: document.getElementById('br_cor_etnia')?.value || '',
+                    estadoCivil: document.getElementById('br_estadoCivil')?.value || '',
+                    estadoCivilDesc: document.getElementById('br_estadoCivil_desc')?.value || '',
+                    profissao: document.getElementById('br_profissao')?.value || '',
+                    ocupacaoLocal: document.getElementById('br_ocupacao_local')?.value || '',
+                    naturalidade: document.getElementById('br_naturalidade')?.value || '',
+                    procedencia: document.getElementById('br_procedencia')?.value || '',
+                    residencia: document.getElementById('br_residencia')?.value || '',
+                    nomeMae: document.getElementById('br_nome_mae')?.value || '',
+                    responsavel: document.getElementById('br_responsavel')?.value || '',
+                    religiao: document.getElementById('br_religiao')?.value || '',
+                    planoSaude: document.getElementById('br_plano_saude')?.value || '',
+                    leito: document.getElementById('br_leito')?.value || ''
+                },
+                queixaPrincipal: document.getElementById('br_queixaPrincipal')?.value || '',
+                interrogatorio: {
+                    estadoGeral: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_eg_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_eg_desc')?.value || ''
+                    },
+                    peleFaneros: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_pf_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_pf_desc')?.value || '',
+                        exposicaoSolar: document.getElementById('br_pf_exposicao_solar')?.value || '',
+                        cuidados: document.getElementById('br_pf_cuidados')?.value || ''
+                    },
+                    cabeca: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_cab_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_cab_desc')?.value || ''
+                    },
+                    olhos: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_olh_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_olh_desc')?.value || '',
+                        oculos: document.getElementById('br_olh_oculos')?.value || '',
+                        ultimoExame: document.getElementById('br_olh_ultimo_exame')?.value || ''
+                    },
+                    ouvidos: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_ouv_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_ouv_desc')?.value || '',
+                        aparelhos: document.getElementById('br_ouv_aparelhos')?.value || '',
+                        exposicao: document.getElementById('br_ouv_exposicao')?.value || ''
+                    },
+                    nariz: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_nar_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_nar_desc')?.value || ''
+                    },
+                    bucal: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_buc_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_buc_desc')?.value || '',
+                        escovacao: document.getElementById('br_buc_escovacao')?.value || '',
+                        ultimoDentista: document.getElementById('br_buc_ultimo_dentista')?.value || ''
+                    },
+                    faringeLaringe: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_far_"]:checked, [id^="br_lar_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_far_lar_desc')?.value || ''
+                    },
+                    vasosLinfonodos: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_vas_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_vas_desc')?.value || ''
+                    },
+                    mamas: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_mam_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_mam_desc')?.value || '',
+                        autoexame: document.getElementById('br_mam_autoexame')?.value || '',
+                        ultimoExame: document.getElementById('br_mam_ultimo_exame')?.value || ''
+                    },
+                    respiratorio: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_resp_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_resp_desc')?.value || '',
+                        alergenios: document.getElementById('br_resp_alergenios')?.value || '',
+                        ultimoRx: document.getElementById('br_resp_ultimo_rx')?.value || ''
+                    },
+                    cardiovascular: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_card_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_card_desc')?.value || '',
+                        estresse: document.getElementById('br_card_estresse')?.value || '',
+                        ultimoCheckup: document.getElementById('br_card_ultimo_checkup')?.value || ''
+                    },
+                    digestorio: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_dig_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_dig_desc')?.value || '',
+                        antiacidos: document.getElementById('br_dig_antiacidos')?.value || '',
+                        laxantes: document.getElementById('br_dig_laxantes')?.value || '',
+                        chas: document.getElementById('br_dig_chas')?.value || ''
+                    },
+                    urinario: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_uri_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_uri_desc')?.value || ''
+                    },
+                    genitalMasculino: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_genm_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_genm_desc')?.value || '',
+                        autoexame: document.getElementById('br_genm_autoexame')?.value || '',
+                        psa: document.getElementById('br_genm_psa')?.value || '',
+                        preservativo: document.getElementById('br_genm_preservativo')?.value || ''
+                    },
+                    genitalFeminino: {
+                        regularidade: document.getElementById('br_genf_regularidade')?.value || '',
+                        duracao: document.getElementById('br_genf_duracao')?.value || '',
+                        fluxo: document.getElementById('br_genf_fluxo')?.value || '',
+                        dum: document.getElementById('br_genf_dum')?.value || '',
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_genf_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_genf_desc')?.value || '',
+                        ultimoGineco: document.getElementById('br_genf_ultimo_gineco')?.value || '',
+                        papanicolau: document.getElementById('br_genf_papanicolau')?.value || '',
+                        reposicao: document.getElementById('br_genf_reposicao')?.value || '',
+                        preservativo: document.getElementById('br_genf_preservativo')?.value || ''
+                    },
+                    hemolinfopoetico: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_hem_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_hem_desc')?.value || ''
+                    },
+                    endocrino: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_end_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_end_desc')?.value || ''
+                    },
+                    osteoarticular: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_ost_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_ost_desc')?.value || '',
+                        postura: document.getElementById('br_ost_postura')?.value || '',
+                        ginastica: document.getElementById('br_ost_ginastica')?.value || ''
+                    },
+                    nervoso: {
+                        sintomas: Array.from(document.querySelectorAll('[id^="br_nerv_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        descricao: document.getElementById('br_nerv_desc')?.value || '',
+                        auxilios: document.getElementById('br_nerv_auxilios')?.value || ''
+                    },
+                    psiquico: document.getElementById('br_psiq_desc')?.value || ''
+                },
+                antecedentesPessoais: {
+                    fisiologicos: {
+                        gestacao: document.getElementById('br_ant_gestacao')?.value || '',
+                        parto: document.getElementById('br_ant_parto')?.value || '',
+                        ordemNasc: document.getElementById('br_ant_ordem_nasc')?.value || '',
+                        numIrmaos: document.getElementById('br_ant_num_irmaos')?.value || '',
+                        nascDesc: document.getElementById('br_ant_nasc_desc')?.value || '',
+                        denticao: document.getElementById('br_ant_denticao')?.value || '',
+                        engatinhar: document.getElementById('br_ant_engatinhar')?.value || '',
+                        andar: document.getElementById('br_ant_andar')?.value || '',
+                        falar: document.getElementById('br_ant_falar')?.value || '',
+                        esfincteres: document.getElementById('br_ant_esfincteres')?.value || '',
+                        escolar: document.getElementById('br_ant_escolar')?.value || '',
+                        desenvDesc: document.getElementById('br_ant_desenv_desc')?.value || '',
+                        puberdade: document.getElementById('br_ant_puberdade')?.value || '',
+                        menarca: document.getElementById('br_ant_menarca')?.value || '',
+                        menopausa: document.getElementById('br_ant_menopausa')?.value || '',
+                        sexarca: document.getElementById('br_ant_sexarca')?.value || '',
+                        orientacao: document.getElementById('br_ant_orientacao')?.value || '',
+                        sexualDesc: document.getElementById('br_ant_sexual_desc')?.value || ''
+                    },
+                    patologicos: {
+                        infancia: Array.from(document.querySelectorAll('[id^="br_ant_sarampo"]:checked, [id^="br_ant_varicela"]:checked, [id^="br_ant_caxumba"]:checked, [id^="br_ant_amigdalites"]:checked, [id^="br_ant_rubeola"]:checked, [id^="br_ant_coqueluche"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        infanciaDesc: document.getElementById('br_ant_infancia_desc')?.value || '',
+                        traumas: document.getElementById('br_ant_traumas')?.value || '',
+                        cronicas: Array.from(document.querySelectorAll('[id^="br_ant_has"]:checked, [id^="br_ant_diabetes"]:checked, [id^="br_ant_hepatite"]:checked, [id^="br_ant_malaria"]:checked, [id^="br_ant_artrose"]:checked, [id^="br_ant_litiase"]:checked, [id^="br_ant_gota"]:checked, [id^="br_ant_pneumonia"]:checked, [id^="br_ant_osteoporose"]:checked, [id^="br_ant_cancer"]:checked, [id^="br_ant_cardiopatia"]:checked, [id^="br_ant_nefropatia"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                        cronicasDesc: document.getElementById('br_ant_cronicas_desc')?.value || '',
+                        cirurgias: document.getElementById('br_ant_cirurgias')?.value || '',
+                        transfusoes: {
+                            numero: document.getElementById('br_ant_transf_num')?.value || '',
+                            quando: document.getElementById('br_ant_transf_quando')?.value || '',
+                            onde: document.getElementById('br_ant_transf_onde')?.value || '',
+                            motivo: document.getElementById('br_ant_transf_motivo')?.value || ''
+                        },
+                        obstetrica: {
+                            gesta: document.getElementById('br_ant_gesta')?.value || '',
+                            para: document.getElementById('br_ant_para')?.value || '',
+                            aborto: document.getElementById('br_ant_aborto')?.value || '',
+                            prematuro: document.getElementById('br_ant_prematuro')?.value || '',
+                            cesarea: document.getElementById('br_ant_cesarea')?.value || '',
+                            filhosVivos: document.getElementById('br_ant_filhos_vivos')?.value || '',
+                            descricao: document.getElementById('br_ant_obstetrica_desc')?.value || ''
+                        },
+                        paternidade: document.getElementById('br_ant_paternidade')?.value || '',
+                        vacinas: document.getElementById('br_ant_vacinas')?.value || '',
+                        alergias: document.getElementById('br_ant_alergias')?.value || '',
+                        medicamentos: document.getElementById('br_ant_medicamentos')?.value || ''
+                    }
+                },
+                antecedentesFamiliares: {
+                    doencas: Array.from(document.querySelectorAll('[id^="br_fam_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    descricao: document.getElementById('br_fam_desc')?.value || ''
+                },
+                habitosVida: {
+                    alimentacao: document.getElementById('br_hab_alimentacao')?.value || '',
+                    ocupacao: document.getElementById('br_hab_ocupacao')?.value || '',
+                    viagens: document.getElementById('br_hab_viagens')?.value || '',
+                    atividades: document.getElementById('br_hab_atividades')?.value || '',
+                    sexual: document.getElementById('br_hab_sexual')?.value || '',
+                    peso: document.getElementById('br_hab_peso')?.value || '',
+                    alcool: {
+                        frequencia: document.getElementById('br_hab_alcool_freq')?.value || '',
+                        tipo: document.getElementById('br_hab_alcool_tipo')?.value || '',
+                        descricao: document.getElementById('br_hab_alcool_desc')?.value || ''
+                    },
+                    tabaco: {
+                        status: document.getElementById('br_hab_tabaco_freq')?.value || '',
+                        tipo: document.getElementById('br_hab_tabaco_tipo')?.value || '',
+                        descricao: document.getElementById('br_hab_tabaco_desc')?.value || ''
+                    },
+                    drogas: document.getElementById('br_hab_drogas')?.value || '',
+                    outrasSubst: document.getElementById('br_hab_outras_subst')?.value || '',
+                    socioeconomico: document.getElementById('br_hab_socioeconomico')?.value || '',
+                    contatoDoentes: document.getElementById('br_hab_contato_doentes')?.value || '',
+                    vidaConjugal: document.getElementById('br_hab_vida_conjugal')?.value || '',
+                    economico: document.getElementById('br_hab_economico')?.value || ''
+                }
+            };
+        }
+        function collectEpicData() {
+            return {
+                patientInfo: {
+                    name: document.getElementById('epic_patient_name')?.value || '',
+                    mrn: document.getElementById('epic_mrn')?.value || '',
+                    dob: document.getElementById('epic_dob')?.value || '',
+                    age: document.getElementById('epic_age')?.value || '',
+                    sex: document.getElementById('epic_sex')?.value || '',
+                    race: document.getElementById('epic_race')?.value || '',
+                    language: document.getElementById('epic_language')?.value || '',
+                    insurance: document.getElementById('epic_insurance')?.value || '',
+                    pcp: document.getElementById('epic_pcp')?.value || ''
+                },
+                chiefComplaint: document.getElementById('epic_chief_complaint')?.value || '',
+                hpi: {
+                    onset: document.getElementById('epic_onset')?.value || '',
+                    location: document.getElementById('epic_location')?.value || '',
+                    duration: document.getElementById('epic_duration')?.value || '',
+                    character: document.getElementById('epic_character')?.value || '',
+                    alleviating: document.getElementById('epic_alleviating')?.value || '',
+                    aggravating: document.getElementById('epic_aggravating')?.value || '',
+                    radiation: document.getElementById('epic_radiation')?.value || '',
+                    timing: document.getElementById('epic_timing')?.value || '',
+                    severity: document.getElementById('epic_severity')?.value || '',
+                    associatedSymptoms: Array.from(document.querySelectorAll('[id^="epic_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    narrative: document.getElementById('epic_hpi_narrative')?.value || ''
+                },
+                pmh: {
+                    conditions: Array.from(document.querySelectorAll('[id^="epic_hypertension"]:checked, [id^="epic_diabetes"]:checked, [id^="epic_cad"]:checked, [id^="epic_chf"]:checked, [id^="epic_copd"]:checked, [id^="epic_asthma"]:checked, [id^="epic_ckd"]:checked, [id^="epic_cancer"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    other: document.getElementById('epic_pmh_other')?.value || '',
+                    surgeries: document.getElementById('epic_psh')?.value || ''
+                },
+                medications: document.getElementById('epic_medications')?.value || '',
+                allergies: document.getElementById('epic_allergies')?.value || '',
+                socialHistory: {
+                    occupation: document.getElementById('epic_occupation')?.value || '',
+                    living: document.getElementById('epic_living')?.value || '',
+                    tobacco: document.getElementById('epic_tobacco')?.value || '',
+                    tobaccoDetails: document.getElementById('epic_tobacco_details')?.value || '',
+                    alcohol: document.getElementById('epic_alcohol')?.value || '',
+                    alcoholDetails: document.getElementById('epic_alcohol_details')?.value || '',
+                    drugs: document.getElementById('epic_drugs')?.value || '',
+                    drugsDetails: document.getElementById('epic_drugs_details')?.value || ''
+                },
+                familyHistory: {
+                    conditions: Array.from(document.querySelectorAll('[id^="epic_fh_"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    details: document.getElementById('epic_fh_details')?.value || ''
+                },
+                ros: {
+                    constitutional: Array.from(document.querySelectorAll('[id^="epic_ros_fever"]:checked, [id^="epic_ros_chills"]:checked, [id^="epic_ros_fatigue"]:checked, [id^="epic_ros_weight"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    gastrointestinal: Array.from(document.querySelectorAll('[id^="epic_ros_abdominal"]:checked, [id^="epic_ros_nausea"]:checked, [id^="epic_ros_vomiting"]:checked, [id^="epic_ros_diarrhea"]:checked, [id^="epic_ros_constipation"]:checked, [id^="epic_ros_blood"]:checked')).map(cb => cb.nextElementSibling.textContent.trim()),
+                    additional: document.getElementById('epic_ros_additional')?.value || ''
+                },
+                physicalExam: {
+                    vitals: {
+                        bp: document.getElementById('epic_bp')?.value || '',
+                        hr: document.getElementById('epic_hr')?.value || '',
+                        rr: document.getElementById('epic_rr')?.value || '',
+                        temp: document.getElementById('epic_temp')?.value || '',
+                        spo2: document.getElementById('epic_spo2')?.value || '',
+                        weight: document.getElementById('epic_weight')?.value || ''
+                    },
+                    general: document.getElementById('epic_general')?.value || '',
+                    abdomen: document.getElementById('epic_abdomen')?.value || '',
+                    otherSystems: document.getElementById('epic_other_exam')?.value || ''
+                },
+                assessmentPlan: {
+                    assessment: document.getElementById('epic_assessment')?.value || '',
+                    problems: document.getElementById('epic_problems')?.value || '',
+                    plan: document.getElementById('epic_plan')?.value || ''
+                }
+            };
+        }
+        function collectSoapData() {
+            return {
+                subjective: {
+                    chiefComplaint: document.getElementById('soap_cc')?.value || '',
+                    hpi: document.getElementById('soap_hpi')?.value || '',
+                    ros: document.getElementById('soap_ros')?.value || ''
+                },
+                objective: {
+                    vitals: {
+                        bp: document.getElementById('soap_vs_bp')?.value || '',
+                        hr: document.getElementById('soap_vs_hr')?.value || '',
+                        rr: document.getElementById('soap_vs_rr')?.value || '',
+                        temp: document.getElementById('soap_vs_temp')?.value || ''
+                    },
+                    physicalExam: document.getElementById('soap_pe')?.value || '',
+                    labs: document.getElementById('soap_labs')?.value || ''
+                },
+                assessment: {
+                    impression: document.getElementById('soap_assessment')?.value || '',
+                    reasoning: document.getElementById('soap_reasoning')?.value || ''
+                },
+                plan: {
+                    diagnostic: document.getElementById('soap_dx_plan')?.value || '',
+                    therapeutic: document.getElementById('soap_tx_plan')?.value || '',
+                    education: document.getElementById('soap_education')?.value || '',
+                    followup: document.getElementById('soap_followup')?.value || ''
+                }
+            };
         }
         // Export to PDF
         function exportToPDF() {
@@ -3904,20 +4229,220 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
             const fileName = `${currentMode}_documentation_${new Date().toISOString().split('T')[0]}.pdf`;
             doc.save(fileName);
         }
+        function generateBrazilianPDF(doc, data, addText) {
+            addText('Identificação do Paciente', 14, true);
+            Object.keys(data.identificacao).forEach(key => {
+                addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${data.identificacao[key] || 'N/A'}`, 10);
+            });
+           
+            addText('Queixa Principal', 14, true);
+            addText(data.queixaPrincipal || 'N/A', 10);
+           
+            addText('Interrogatório Sintomatológico', 14, true);
+            Object.keys(data.interrogatorio).forEach(system => {
+                addText(system.charAt(0).toUpperCase() + system.slice(1), 12, true);
+                const sysData = data.interrogatorio[system];
+                if (Array.isArray(sysData.sintomas)) {
+                    addText('Sintomas: ' + (sysData.sintomas.length > 0 ? sysData.sintomas.join(', ') : 'Nenhum'), 10);
+                }
+                addText('Descrição: ' + (sysData.descricao || 'N/A'), 10);
+                // Add other fields if present
+                Object.keys(sysData).forEach(key => {
+                    if (key !== 'sintomas' && key !== 'descricao' && sysData[key]) {
+                        addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${sysData[key]}`, 10);
+                    }
+                });
+            });
+           
+            addText('Antecedentes Pessoais', 14, true);
+            addText('Fisiológicos', 12, true);
+            Object.keys(data.antecedentesPessoais.fisiologicos).forEach(key => {
+                addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${data.antecedentesPessoais.fisiologicos[key] || 'N/A'}`, 10);
+            });
+            addText('Patológicos', 12, true);
+            Object.keys(data.antecedentesPessoais.patologicos).forEach(key => {
+                const value = data.antecedentesPessoais.patologicos[key];
+                if (Array.isArray(value)) {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value.length > 0 ? value.join(', ') : 'Nenhum'}`, 10);
+                } else if (typeof value === 'object') {
+                    addText(key.charAt(0).toUpperCase() + key.slice(1), 11, true);
+                    Object.keys(value).forEach(subkey => {
+                        addText(`${subkey}: ${value[subkey] || 'N/A'}`, 10);
+                    });
+                } else {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value || 'N/A'}`, 10);
+                }
+            });
+           
+            addText('Antecedentes Familiares', 14, true);
+            addText('Doenças: ' + (data.antecedentesFamiliares.doencas.length > 0 ? data.antecedentesFamiliares.doencas.join(', ') : 'Nenhuma'), 10);
+            addText('Descrição: ' + (data.antecedentesFamiliares.descricao || 'N/A'), 10);
+           
+            addText('Hábitos de Vida', 14, true);
+            Object.keys(data.habitosVida).forEach(key => {
+                const value = data.habitosVida[key];
+                if (typeof value === 'object') {
+                    addText(key.charAt(0).toUpperCase() + key.slice(1), 12, true);
+                    Object.keys(value).forEach(subkey => {
+                        addText(`${subkey}: ${value[subkey] || 'N/A'}`, 10);
+                    });
+                } else {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value || 'N/A'}`, 10);
+                }
+            });
+        }
+        function generateEpicPDF(doc, data, addText) {
+            addText('Patient Information', 14, true);
+            Object.keys(data.patientInfo).forEach(key => {
+                addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${data.patientInfo[key] || 'N/A'}`, 10);
+            });
+           
+            addText('Chief Complaint', 14, true);
+            addText(data.chiefComplaint || 'N/A', 10);
+           
+            addText('History of Present Illness', 14, true);
+            Object.keys(data.hpi).forEach(key => {
+                const value = data.hpi[key];
+                if (Array.isArray(value)) {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value.length > 0 ? value.join(', ') : 'None'}`, 10);
+                } else {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value || 'N/A'}`, 10);
+                }
+            });
+           
+            addText('Past Medical History', 14, true);
+            addText('Conditions: ' + (data.pmh.conditions.length > 0 ? data.pmh.conditions.join(', ') : 'None'), 10);
+            addText('Other: ' + (data.pmh.other || 'N/A'), 10);
+            addText('Surgeries: ' + (data.pmh.surgeries || 'N/A'), 10);
+           
+            addText('Medications', 14, true);
+            addText(data.medications || 'N/A', 10);
+           
+            addText('Allergies', 14, true);
+            addText(data.allergies || 'N/A', 10);
+           
+            addText('Social History', 14, true);
+            Object.keys(data.socialHistory).forEach(key => {
+                addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${data.socialHistory[key] || 'N/A'}`, 10);
+            });
+           
+            addText('Family History', 14, true);
+            addText('Conditions: ' + (data.familyHistory.conditions.length > 0 ? data.familyHistory.conditions.join(', ') : 'None'), 10);
+            addText('Details: ' + (data.familyHistory.details || 'N/A'), 10);
+           
+            addText('Review of Systems', 14, true);
+            Object.keys(data.ros).forEach(key => {
+                const value = data.ros[key];
+                if (Array.isArray(value)) {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value.length > 0 ? value.join(', ') : 'None'}`, 10);
+                } else {
+                    addText(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value || 'N/A'}`, 10);
+                }
+            });
+           
+            addText('Physical Exam', 14, true);
+            addText('Vitals', 12, true);
+            Object.keys(data.physicalExam.vitals).forEach(key => {
+                addText(`${key.toUpperCase()}: ${data.physicalExam.vitals[key] || 'N/A'}`, 10);
+            });
+            addText('General: ' + (data.physicalExam.general || 'N/A'), 10);
+            addText('Abdomen: ' + (data.physicalExam.abdomen || 'N/A'), 10);
+            addText('Other: ' + (data.physicalExam.otherSystems || 'N/A'), 10);
+           
+            addText('Assessment & Plan', 14, true);
+            addText('Assessment: ' + (data.assessmentPlan.assessment || 'N/A'), 10);
+            addText('Problems: ' + (data.assessmentPlan.problems || 'N/A'), 10);
+            addText('Plan: ' + (data.assessmentPlan.plan || 'N/A'), 10);
+        }
+        function generateSoapPDF(doc, data, addText) {
+            addText('Subjective', 14, true);
+            addText('Chief Complaint: ' + (data.subjective.chiefComplaint || 'N/A'), 10);
+            addText('HPI: ' + (data.subjective.hpi || 'N/A'), 10);
+            addText('ROS: ' + (data.subjective.ros || 'N/A'), 10);
+           
+            addText('Objective', 14, true);
+            addText('Vitals', 12, true);
+            Object.keys(data.objective.vitals).forEach(key => {
+                addText(`${key.toUpperCase()}: ${data.objective.vitals[key] || 'N/A'}`, 10);
+            });
+            addText('Physical Exam: ' + (data.objective.physicalExam || 'N/A'), 10);
+            addText('Labs/Imaging: ' + (data.objective.labs || 'N/A'), 10);
+           
+            addText('Assessment', 14, true);
+            addText('Impression: ' + (data.assessment.impression || 'N/A'), 10);
+            addText('Reasoning: ' + (data.assessment.reasoning || 'N/A'), 10);
+           
+            addText('Plan', 14, true);
+            addText('Diagnostic: ' + (data.plan.diagnostic || 'N/A'), 10);
+            addText('Therapeutic: ' + (data.plan.therapeutic || 'N/A'), 10);
+            addText('Education: ' + (data.plan.education || 'N/A'), 10);
+            addText('Follow-up: ' + (data.plan.followup || 'N/A'), 10);
+        }
         // Export to Word
         function exportToWord() {
             const data = collectFormData();
-            let htmlContent = generateWordHTML(data);
+            let htmlContent = '<html><head><title>Documentation</title></head><body>';
+            if (currentMode === 'brazilian') {
+                htmlContent += generateBrazilianWordContent(data.sections);
+            } else if (currentMode === 'epic') {
+                htmlContent += generateEpicWordContent(data.sections);
+            } else if (currentMode === 'soap') {
+                htmlContent += generateSoapWordContent(data.sections);
+            }
+            htmlContent += '</body></html>';
            
             const blob = new Blob([htmlContent], { type: 'application/msword' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `${currentMode}_documentation_${new Date().toISOString().split('T')[0]}.doc`;
-            document.body.appendChild(a);
+            a.download = `${currentMode}_documentation.doc`;
             a.click();
-            document.body.removeChild(a);
             URL.revokeObjectURL(url);
+        }
+        function generateBrazilianWordContent(data) {
+            let html = '<h1>ANAMNESE - GASTROCIRURGIA</h1>';
+            html += '<h2>Identificação do Paciente</h2>';
+            Object.keys(data.identificacao).forEach(key => {
+                html += `<p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${data.identificacao[key] || 'N/A'}</p>`;
+            });
+            html += '<h2>Queixa Principal</h2>';
+            html += `<p>${data.queixaPrincipal || 'N/A'}</p>`;
+            // Add other sections similarly
+            html += '<h2>Interrogatório Sintomatológico</h2>';
+            Object.keys(data.interrogatorio).forEach(system => {
+                html += `<h3>${system.charAt(0).toUpperCase() + system.slice(1)}</h3>`;
+                const sysData = data.interrogatorio[system];
+                if (Array.isArray(sysData.sintomas)) {
+                    html += '<p><strong>Sintomas:</strong> ' + (sysData.sintomas.length > 0 ? sysData.sintomas.join(', ') : 'Nenhum') + '</p>';
+                }
+                html += '<p><strong>Descrição:</strong> ' + (sysData.descricao || 'N/A') + '</p>';
+                // Add other fields
+                Object.keys(sysData).forEach(key => {
+                    if (key !== 'sintomas' && key !== 'descricao' && sysData[key]) {
+                        html += `<p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${sysData[key]}</p>`;
+                    }
+                });
+            });
+            // Add antecedents, etc.
+            return html;
+        }
+        function generateEpicWordContent(data) {
+            let html = '<h1>EPIC MEDICAL RECORD</h1>';
+            html += '<h2>Patient Information</h2>';
+            Object.keys(data.patientInfo).forEach(key => {
+                html += `<p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${data.patientInfo[key] || 'N/A'}</p>`;
+            });
+            // Add other sections similarly
+            return html;
+        }
+        function generateSoapWordContent(data) {
+            let html = '<h1>SOAP NOTE</h1>';
+            html += '<h2>Subjective</h2>';
+            html += '<p><strong>Chief Complaint:</strong> ' + (data.subjective.chiefComplaint || 'N/A') + '</p>';
+            html += '<p><strong>HPI:</strong> ' + (data.subjective.hpi || 'N/A') + '</p>';
+            html += '<p><strong>ROS:</strong> ' + (data.subjective.ros || 'N/A') + '</p>';
+            // Add other sections
+            return html;
         }
         // Reset form
         function resetForm() {
@@ -3953,6 +4478,27 @@ Respiratory: Clear to auscultation bilaterally..."></textarea>
                 field.addEventListener('change', updateProgress);
             });
            
+            // Calculate IMC when weight or height changes
+            const pesoField = document.getElementById('br_ef_peso');
+            const alturaField = document.getElementById('br_ef_altura');
+            const imcField = document.getElementById('br_ef_imc');
+           
+            if (pesoField && alturaField && imcField) {
+                function calculateIMC() {
+                    const peso = parseFloat(pesoField.value);
+                    const altura = parseFloat(alturaField.value);
+                   
+                    if (peso > 0 && altura > 0) {
+                        const imc = peso / (altura * altura);
+                        imcField.value = imc.toFixed(1);
+                    }
+                }
+               
+                pesoField.addEventListener('input', calculateIMC);
+                alturaField.addEventListener('input', calculateIMC);
+            }
+           
+            // Initialize progress
             updateProgress();
            
             // Stop any recording if page is being unloaded
